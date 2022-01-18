@@ -1,6 +1,6 @@
 if (typeof module !== 'undefined') {
   var assert = require('assert');
-  var faker = require('../lib').faker;
+  var faker = require('../dist/faker');
 }
 
 describe('word.js', function () {

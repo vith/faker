@@ -1,7 +1,7 @@
 if (typeof module !== 'undefined') {
   var assert = require('assert');
   var sinon = require('sinon');
-  var faker = require('../lib').faker;
+  var faker = require('../dist/faker');
 }
 
 faker.seed(1234);
@@ -280,26 +280,23 @@ describe('finance.js', function () {
       });
     });
 
-    // TODO @Shinigami92 2022-01-18: See https://github.com/faker-js/faker/pull/179
-    if (require('os').platform() !== 'win32') {
-      it('should return the number formatted on the current locale', function () {
-        const number = 6000,
-          decimalPlaces = 2;
-        const expected = number.toLocaleString(undefined, {
-          minimumFractionDigits: decimalPlaces,
-        });
-
-        const amount = faker.finance.amount(
-          number,
-          number,
-          decimalPlaces,
-          undefined,
-          true
-        );
-
-        assert.strictEqual(amount, expected);
+    it('should return the number formatted on the current locale', function () {
+      const number = 6000,
+        decimalPlaces = 2;
+      const expected = number.toLocaleString(undefined, {
+        minimumFractionDigits: decimalPlaces,
       });
-    }
+
+      const amount = faker.finance.amount(
+        number,
+        number,
+        decimalPlaces,
+        undefined,
+        true
+      );
+
+      assert.strictEqual(amount, expected);
+    });
   });
 
   describe('transactionType()', function () {

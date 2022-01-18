@@ -22,22 +22,18 @@
     "url": "https://github.com/faker-js/faker.git"
   },
   "license": "MIT",
-  "main": "lib/index.js",
-  "files": [
-    "CHANGELOG.md",
-    "CHANGELOG_old.md",
-    "dist",
-    "index.d.ts",
-    "index.js",
-    "lib",
-    "locale",
-    "tsconfig.json",
-    "vendor"
-  ],
+  "source": "src/index.ts",
+  "exports": {
+    "require": "./dist/faker.cjs",
+    "default": "./dist/faker.modern.js"
+  },
+  "main": "./dist/faker.cjs",
+  "module": "./dist/faker.module.js",
+  "unpkg": "./dist/faker.umd.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "tsc",
     "browser": "gulp browser",
+    "build": "microbundle --compress --strict --raw",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "docs:build": "vitepress build docs",
     "docs:build:ci": "run-s build browser docs:build",
@@ -114,11 +110,23 @@
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
     "vinyl-transform": "^1.0.0",
-    "vitepress": "^0.21.4"
+    "vitepress": "^0.21.4",
+    "microbundle": "^0.14.2"
   },
   "packageManager": "pnpm@6.26.1",
   "engines": {
     "node": ">=12.0.0",
     "npm": ">=7.0.0"
-  }
+  },
+  "files": [
+    "CHANGELOG.md",
+    "CHANGELOG_old.md",
+    "dist",
+    "index.d.ts",
+    "index.js",
+    "lib",
+    "locale",
+    "tsconfig.json",
+    "vendor"
+  ]
 }
