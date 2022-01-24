@@ -1,0 +1,39 @@
+name: Publish Canary
+
+env:
+  PRIMARY_NODE_VERSION: 16
+  PNPM_VERSION: 6
+
+on:
+  push:
+    branches:
+      - main
+      
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: "Build and Publish Node 16"
+    if: github.repository == 'faker-js/faker' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Set node version to ${{ env.PRIMARY_NODE_VERSION }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.PRIMARY_NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: Build
+        run: npm run build 
+
+      - name: Bump Version
+        
+
+      - name: Publish
+        run: npm run publish 
